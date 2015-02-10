@@ -1,6 +1,7 @@
 from Room import *
 from House import *
 from Person import *
+from Kitchen import *
 import cPickle as pickle
 import time
 
@@ -34,7 +35,7 @@ class Simulation:
 	def run(self):	
 		home = House()
 		
-		kitchen = Room(home, "Kitchen")
+		kitchen = Kitchen(home, "Kitchen")
 		livingRoom = Room(home, "Living Room")
 		diningRoom = Room(home, "Dining Room")
 		bedroom1 = Room(home, "Josh's Room")

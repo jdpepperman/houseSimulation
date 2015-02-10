@@ -1,4 +1,5 @@
 from Actor import *
+from Kitchen import *
 import random
 
 class Person(Actor):
@@ -18,8 +19,11 @@ class Person(Actor):
 		
 	def tick(self):
 		self.calcAge()
-		self.wander()
 		self.alterStats()
+		if self.hunger >= random.randint(70,101) or self.hunger > 100 or self.status == "eating":
+			self.eat()
+		else:
+			self.wander()
 
 	def wander(self):
 		self.status = "wandering"
@@ -30,6 +34,15 @@ class Person(Actor):
 		roomToGoTo = possibleRoomsToGoTo[random.randint(0,len(possibleRoomsToGoTo)-1)]
 		self.moveToRoom(roomToGoTo)
 	
+	def eat(self):
+		if isinstance(self.getRoom(), Kitchen):
+			self.status = "eating"
+			self.hunger = self.hunger - random.randint(1,4)
+			if self.hunger < random.randint(0,20):
+				self.status = "idle"
+		else:
+			self.wander()
+
 	def calcAge(self):
 		self.hourCount = self.hourCount + 1
 		if self.hourCount >= 8766:
@@ -40,6 +53,6 @@ class Person(Actor):
 		self.age = age
 
 	def alterStats(self):
-		incHunger = random.randint(0,4)
-		if incHunger == 0:
+		incHunger = random.randint(0,100)
+		if incHunger < 25:
 			self.hunger = self.hunger + 1
