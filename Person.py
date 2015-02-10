@@ -7,7 +7,7 @@ class Person(Actor):
 		Actor.__init__(self, house, name)
 		self.house.placePersonInRoom(self)
 		self.age = age
-		self.hourCount = 0
+		self.minuteCount = 0
 		self.hunger = random.randint(0,20)
 
 	def __str__(self):
@@ -44,10 +44,10 @@ class Person(Actor):
 			self.wander()
 
 	def calcAge(self):
-		self.hourCount = self.hourCount + 1
-		if self.hourCount >= 8766:
+		self.minuteCount = self.minuteCount + 1
+		if self.minuteCount >= 525949:
 			self.age = self.age + 1
-			self.hourCount = 0
+			self.minuteCount = 0
 
 	def setAge(self, age):
 		self.age = age

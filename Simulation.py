@@ -2,6 +2,7 @@ from Room import *
 from House import *
 from Person import *
 from Kitchen import *
+from Bathroom import *
 import cPickle as pickle
 import time
 
@@ -38,14 +39,16 @@ class Simulation:
 		kitchen = Kitchen(home, "Kitchen")
 		livingRoom = Room(home, "Living Room")
 		diningRoom = Room(home, "Dining Room")
-		bedroom1 = Room(home, "Josh's Room")
-		bedroom2 = Room(home, "Emma's Room")
+		joshuaBedroom = Room(home, "Joshua's Room")
+		emmaBedroom = Room(home, "Emma's Room")
+		jacksonBedroom = Room(home, "Jackson's Room")
+		claireBedroom = Room(home, "Claire's Room")
 		hallway = Room(home, "Hallway")
-		bathroom = Room(home, "Bathroom")
+		bathroom = Bathroom(home, "Bathroom")
 		laundryRoom = Room(home, "Laundry Room")
 		
 		kitchen.addConnections([livingRoom, diningRoom])
-		hallway.addConnections([bedroom1, bedroom2, livingRoom, laundryRoom, bathroom])
+		hallway.addConnections([joshuaBedroom, emmaBedroom, claireBedroom, jacksonBedroom, livingRoom, laundryRoom, bathroom])
 		
 		joshua = Person(home, "Joshua", 21)
 		emma = Person(home, "Emma", 19)

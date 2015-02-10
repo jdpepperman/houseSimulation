@@ -1,3 +1,5 @@
+from Person import *
+
 class Room(object):
 	def __init__(self, house, name):
 		self.name = name
@@ -6,6 +8,7 @@ class Room(object):
 		self.actorsInRoom = []
 
 		self.house.addRooms([self])
+		self.canEnter = True
 
 	def __str__(self):
 		s = "Room: " + self.name + "\n"
@@ -30,10 +33,14 @@ class Room(object):
 			connection.connections.append(self)
 
 	def addActor(self, actor):
-		for r in self.house:
-			if actor in r.actorsInRoom:
-				r.actorsInRoom.remove(actor)
-		self.actorsInRoom.append(actor)
+		if isinstance(actor, Person):
+			for r in self.house:
+				if actor in r.actorsInRoom:
+					r.actorsInRoom.remove(actor)
+			if self.canEnter:
+				self.actorsInRoom.append(actor)
+		else:
+			self.actorsInRoom.append(actor)
 
 	def getConnections(self):
 		return self.connections
