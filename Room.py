@@ -15,9 +15,13 @@ class Room(object):
 		s = s[:-2]
 
 		s = s + "\nActors in Room: \n"
-		for actor in self.actorsInRoom:
-			s = s + actor.name + ", "
-		s = s[:-2]
+		if len(self.actorsInRoom) == 0:
+			s = s + "\n"
+			s = s[:-1]
+		else:
+			for actor in self.actorsInRoom:
+				s = s + actor.name + ", "
+			s = s[:-2]
 		return s
 
 	def addConnections(self, listOfRoomsThisConnectsTo):

@@ -3,6 +3,7 @@ class Actor(object):
 		self.name = name
 		self.house = house
 		self.house.actors.append(self)
+		self.status = "nothing"
 
 	def __str__(self):
 		return self.name

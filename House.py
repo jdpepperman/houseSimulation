@@ -1,4 +1,5 @@
 from Room import *
+from Person import *
 import random
 
 class House(object):
@@ -30,3 +31,14 @@ class House(object):
 	def tick(self):
 		for actor in self.actors:
 			actor.tick()
+
+	def toString_people(self):
+		s = "People in house [name, age, hunger, status]:\n"
+		for a in self.actors:
+			if isinstance(a, Person):
+				if len(a.name) < 5:
+					s = s + "[" + a.name + ",\t\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + a.status + "]\n"
+				else:
+					s = s + "[" + a.name + ",\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + a.status + "]\n"
+
+		return s

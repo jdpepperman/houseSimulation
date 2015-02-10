@@ -6,8 +6,8 @@ class Person(Actor):
 		Actor.__init__(self, house, name)
 		self.house.placePersonInRoom(self)
 		self.age = age
-		self.doing = "nothing"
 		self.hourCount = 0
+		self.hunger = random.randint(0,20)
 
 	def __str__(self):
 		s = "Name: " + self.name + "\n"
@@ -19,9 +19,10 @@ class Person(Actor):
 	def tick(self):
 		self.calcAge()
 		self.wander()
+		self.alterStats()
 
 	def wander(self):
-		self.doing = "wandering"
+		self.status = "wandering"
 		possibleRoomsToGoTo = []
 		possibleRoomsToGoTo.append(self.getRoom())
 		possibleRoomsToGoTo.extend(self.getRoom().getConnections())
@@ -37,3 +38,8 @@ class Person(Actor):
 
 	def setAge(self, age):
 		self.age = age
+
+	def alterStats(self):
+		incHunger = random.randint(0,4)
+		if incHunger == 0:
+			self.hunger = self.hunger + 1
