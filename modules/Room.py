@@ -35,11 +35,14 @@ class Room(object):
 		if isinstance(actor, Person):
 			for r in self.house:
 				if actor in r.actorsInRoom:
-					r.actorsInRoom.remove(actor)
+					r.removeActor(actor)
 			if self.canEnter:
 				self.actorsInRoom.append(actor)
 		else:
 			self.actorsInRoom.append(actor)
+
+	def removeActor(self, actor):
+		self.actorsInRoom.remove(actor)
 
 	def getConnections(self):
 		return self.connections

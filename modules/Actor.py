@@ -15,7 +15,7 @@ class Actor(object):
 		from Room import Room
 		for r in self.house:
 			if self in r.actorsInRoom:
-				r.actorsInRoom.remove(self)
+				r.removeActor(self)
 		room.addActor(self)
 				
 	def getRoom(self):
@@ -23,7 +23,12 @@ class Actor(object):
 			if self in room.actorsInRoom:
 				return room
 
+        #Moves an actor to a room. If the room is not enterable, they will stay in
+        #the same room.
 	def moveToRoom(self, room):
+		#print(self.name +" moving from " + self.getRoom().name + " to " + room.name)
 		from Room import Room
-		self.getRoom().actorsInRoom.remove(self)
+                if room.canEnter == False:
+                    room = self.getRoom()
+		self.getRoom().removeActor(self)
 		room.addActor(self)

@@ -18,9 +18,14 @@ class House(object):
 	def placePersonInRoom(self, person):
 		for room in self.rooms:
 			if person in room.actorsInRoom:
-				room.actorsInRoom.remove(person)
-		i = random.randint(0, len(self.rooms)-1)
-		self.rooms[i].addActor(person)
+				room.removeActor(person)
+
+		placed = False
+		while not placed:
+			i = random.randint(0, len(self.rooms)-1)
+			if self.rooms[i].canEnter:
+				self.rooms[i].addActor(person)
+				placed = True
 
 	def addRooms(self, rooms):
 		for room in rooms:

@@ -35,6 +35,7 @@ class Person(Actor):
 		self.moveToRoom(roomToGoTo)
 	
 	def eat(self):
+		from Kitchen import Kitchen
 		if isinstance(self.getRoom(), Kitchen):
 			self.status = "eating"
 			self.hunger = self.hunger - random.randint(1,4)

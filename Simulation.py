@@ -45,6 +45,8 @@ class Simulation:
 		
 		kitchen.addConnections([livingRoom, diningRoom])
 		hallway.addConnections([joshuaBedroom, emmaBedroom, claireBedroom, jacksonBedroom, livingRoom, laundryRoom, bathroom])
+		#kitchen.addConnections([bathroom])
+		#hallway.addConnections([livingRoom, bathroom])
 		
 		joshua = Person(home, "Joshua", 21)
 		emma = Person(home, "Emma", 19)
