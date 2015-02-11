@@ -12,6 +12,7 @@ class Actor(object):
 		pass
 	
 	def putInRoom(self, room):
+		from Room import Room
 		for r in self.house:
 			if self in r.actorsInRoom:
 				r.actorsInRoom.remove(self)
@@ -23,5 +24,6 @@ class Actor(object):
 				return room
 
 	def moveToRoom(self, room):
+		from Room import Room
 		self.getRoom().actorsInRoom.remove(self)
 		room.addActor(self)

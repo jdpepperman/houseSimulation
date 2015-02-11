@@ -1,5 +1,5 @@
-from Actor import *
-from Kitchen import *
+from Actor import Actor
+from Room import Room
 import random
 
 class Person(Actor):

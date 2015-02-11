@@ -1,4 +1,4 @@
-from Room import *
+from Room import Room
 
 class Bathroom(Room):
 	def __init__(self, house, name):
@@ -7,6 +7,7 @@ class Bathroom(Room):
 		self.occupiedBy = None
 
 	def addActor(self, actor):
+		from Person import Person
 		Room.addActor(self, actor)
 		if isinstance(actor, Person):
 			self.occupiedBy = actor

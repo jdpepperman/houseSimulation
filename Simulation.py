@@ -1,8 +1,4 @@
-from Room import *
-from House import *
-from Person import *
-from Kitchen import *
-from Bathroom import *
+from modules import *
 import cPickle as pickle
 import time
 

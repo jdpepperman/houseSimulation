@@ -1,5 +1,4 @@
-from Room import *
-from Person import *
+from Person import Person
 import random
 
 class House(object):

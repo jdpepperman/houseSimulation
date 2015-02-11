@@ -1,5 +1,3 @@
-from Person import *
-
 class Room(object):
 	def __init__(self, house, name):
 		self.name = name
@@ -33,6 +31,7 @@ class Room(object):
 			connection.connections.append(self)
 
 	def addActor(self, actor):
+		from Person import Person
 		if isinstance(actor, Person):
 			for r in self.house:
 				if actor in r.actorsInRoom:
