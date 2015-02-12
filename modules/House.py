@@ -15,6 +15,9 @@ class House(object):
 	def __iter__(self):
 		return iter(self.rooms)
 
+	def getRooms(self):
+		return self.rooms
+
 	def placePersonInRoom(self, person):
 		for room in self.rooms:
 			if person in room.actorsInRoom:
@@ -47,7 +50,7 @@ class House(object):
 		s = "People in house [name, age, hunger, status]:\n"
 		for a in self.actors:
 			if isinstance(a, Person):
-				if len(a.name) < 5:
+				if len(a.name) < 6:
 					s = s + "[" + a.name + ",\t\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + a.status + "]\n"
 				else:
 					s = s + "[" + a.name + ",\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + a.status + "]\n"

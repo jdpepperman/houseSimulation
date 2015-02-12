@@ -63,12 +63,17 @@ class Simulation:
 		
 		joshua = Person(home, "Joshua", 21)
                 joshua.hunger = 100
-		emma = Person(home, "Emma", 19)
-                emma .hunger = 100
-		jackson = Person(home, "Jackson", 20)
-                jackson .hunger = 100
-		claire = Person(home, "Claire", 21)
-                claire .hunger = 100
+		joshua.putInRoom(room13)
+		#emma = Person(home, "Emma", 19)
+                #emma .hunger = 100
+		#jackson = Person(home, "Jackson", 20)
+                #jackson .hunger = 100
+		#claire = Person(home, "Claire", 21)
+                #claire .hunger = 100
+
+		#people = [joshua, emma, claire, jackson]
+		#for p in people:
+		#	p.putInRoom(room13)
 		
 		while(True):
 			home.tick()

@@ -44,15 +44,34 @@ class Person(Actor):
                 from Kitchen import Kitchen
                 currentRoom = self.getRoom()
                 #traverse the graph and look for a path. then move along it
-                for room in currentRoom.getConnections():
-                    if isinstance(room, roomType):
-                        self.moveToRoom(room)
-                    else:
-			#look through them here!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                roomCheckedStatus = {}
+                for room in self.house.getRooms():
+                    roomCheckedStatus[room] = False
+                       
+                roomToGoTo = self.__getRoomTowardRoomType(self.getRoom(), roomType, roomCheckedStatus)
+                self.moveToRoom(roomToGoTo)
             else:
                 self.wander()
 
-	
+        def __getRoomTowardRoomType(self, fromRoom, roomType, roomCheckedStatus):
+            def isConnected(r, rt):
+                for con in r.getConnections():
+                    if isinstance(con, rt):
+                        return True
+                    else:
+                        return isConnected(con, rt)
+
+                return False
+
+            for room in fromRoom.getConnections():
+                if isinstance(room, roomType) or isConnected(room, roomType):
+                    return room
+            
+            #for room in fromRoom.getConnections():
+            #    if isConnected(room, roomType):
+            #        return room
+
+
 	def eat(self):
 		from Kitchen import Kitchen
 		if isinstance(self.getRoom(), Kitchen):
