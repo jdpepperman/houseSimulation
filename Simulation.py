@@ -49,6 +49,7 @@ class Simulation:
 		#hallway.addConnections([livingRoom, bathroom])
 		
 		joshua = Person(home, "Joshua", 21)
+		joshua.hunger = 69
 		emma = Person(home, "Emma", 19)
 		jackson = Person(home, "Jackson", 20)
 		claire = Person(home, "Claire", 21)

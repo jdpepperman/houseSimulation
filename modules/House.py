@@ -32,6 +32,13 @@ class House(object):
 			if room not in self.rooms:
 				self.rooms.append(room)
 
+	def hasRoomType(self, roomType):
+		for room in self.rooms:
+			if isinstance(room, roomType):
+				return True
+
+		return False
+	
 	def tick(self):
 		for actor in self.actors:
 			actor.tick()
@@ -46,3 +53,4 @@ class House(object):
 					s = s + "[" + a.name + ",\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + a.status + "]\n"
 
 		return s
+

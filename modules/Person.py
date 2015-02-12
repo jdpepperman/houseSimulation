@@ -20,10 +20,13 @@ class Person(Actor):
 	def tick(self):
 		self.calcAge()
 		self.alterStats()
-		if self.hunger >= random.randint(70,101) or self.hunger > 100 or self.status == "eating":
+                if self.__hungry():
 			self.eat()
 		else:
 			self.wander()
+
+        def __hungry(self):
+            return self.hunger >= random.randint(70,101) or self.hunger > 100 or self.status == "eating" or self.status == "moving to Kitchen"
 
 	def wander(self):
 		self.status = "wandering"
@@ -33,6 +36,22 @@ class Person(Actor):
 
 		roomToGoTo = possibleRoomsToGoTo[random.randint(0,len(possibleRoomsToGoTo)-1)]
 		self.moveToRoom(roomToGoTo)
+
+        def moveTowardRoomType(self, roomType):
+            if self.house.hasRoomType(roomType):
+                self.status = "moving to " + roomType.__name__
+                from Bathroom import Bathroom
+                from Kitchen import Kitchen
+                currentRoom = self.getRoom()
+                #traverse the graph and look for a path. then move along it
+                for room in currentRoom.getConnections():
+                    if isinstance(room, roomType):
+                        self.moveToRoom(room)
+                    else:
+			#look through them here!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            else:
+                self.wander()
+
 	
 	def eat(self):
 		from Kitchen import Kitchen
@@ -42,7 +61,7 @@ class Person(Actor):
 			if self.hunger < random.randint(0,20):
 				self.status = "idle"
 		else:
-			self.wander()
+			self.moveTowardRoomType(Kitchen)
 
 	def calcAge(self):
 		self.minuteCount = self.minuteCount + 1
