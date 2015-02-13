@@ -70,8 +70,8 @@ class Simulation:
 		brock = Person(home, "Brock", 16)
 
 		people = [joshua, emma, raychel, sarah, caleb, ellen, kaylee, gary, anna, brock]
-		for person in people:
-			person.hunger = 68
+		#for person in people:
+		#	person.hunger = 68
 		
 		while(True):
 			home.tick()
