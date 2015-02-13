@@ -29,6 +29,7 @@ class Person(Actor):
             return self.hunger >= random.randint(70,101) or self.hunger > 100 or self.status == "eating" or self.status == "moving to Kitchen"
 
 	def wander(self):
+            """Makes the person randomly pick a room that he can go to (including the one he's in) and go there"""
 		self.status = "wandering"
 		possibleRoomsToGoTo = []
 		possibleRoomsToGoTo.append(self.getRoom())
@@ -38,6 +39,7 @@ class Person(Actor):
 		self.moveToRoom(roomToGoTo)
 
         def moveTowardRoomType(self, roomType):
+            """Makes the person move in the direction of a room of type roomType. If one is not present in the house, he will wander instead."""
             if self.house.hasRoomType(roomType):
                 self.status = "moving to " + roomType.__name__
                 from Bathroom import Bathroom
