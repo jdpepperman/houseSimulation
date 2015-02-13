@@ -44,21 +44,13 @@ class Person(Actor):
                 from Kitchen import Kitchen
                 currentRoom = self.getRoom()
                 #traverse the graph and look for a path. then move along it
-                roomCheckedStatus = {}
-                for room in self.house.getRooms():
-                    roomCheckedStatus[room] = False
-                       
-                roomToGoTo = self.__getRoomTowardRoomType(self.getRoom(), roomType, roomCheckedStatus)
+                roomToGoTo = self.__getRoomTowardRoomType(roomType)
                 self.moveToRoom(roomToGoTo)
             else:
                 self.wander()
 
-        def __getRoomTowardRoomType(self, fromRoom, roomType, roomCheckedStatus):
+        def __getRoomTowardRoomType(self, roomType):
             def isConnected(r, rt):
-                for key in roomCheckedStatus:
-                    print(key.name + "\t" + str(roomCheckedStatus[key]))
-                print("\n")
-
                 for con in r.getConnections():
                     if roomCheckedStatus[con] == False:
                         roomCheckedStatus[con] = True
@@ -69,20 +61,17 @@ class Person(Actor):
 
                 return False
             
-            print("From Room: " + fromRoom.name)
-            print(fromRoom.getConnections())
+            #set up the checked status of each room in the house
+            roomCheckedStatus = {}
+            for room in self.house.getRooms():
+                roomCheckedStatus[room] = False
+            
+            fromRoom = self.getRoom()
             roomCheckedStatus[fromRoom] = True
             for room in fromRoom.getConnections():
-                print("Checking Room: " + room.name)
                 roomCheckedStatus[room] = True
                 if isinstance(room, roomType) or isConnected(room, roomType):
-                    print("MOVING TOWARD: " + room.name)
                     return room
-            
-            #for room in fromRoom.getConnections():
-            #    if isConnected(room, roomType):
-            #        return room
-
 
 	def eat(self):
 		from Kitchen import Kitchen
