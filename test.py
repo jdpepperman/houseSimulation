@@ -59,19 +59,8 @@ class Simulation:
 
 
 		joshua = Person(home, "Joshua", 21)
-		emma = Person(home, "Emma", 19)
-		raychel = Person(home, "Raychel", 18)
-		sarah = Person(home, "Sarah", 13)
-		caleb = Person(home, "Caleb", 19)
-		ellen = Person(home, "Ellen", 18)
-		kaylee = Person(home, "Kaylee", 19)
-		gary = Person(home, "Grayson", 16)
-		anna = Person(home, "Anna", 16)
-		brock = Person(home, "Brock", 16)
-
-		people = [joshua, emma, raychel, sarah, caleb, ellen, kaylee, gary, anna, brock]
-		for person in people:
-			person.hunger = 68
+		joshua.hunger = 90
+		joshua.putInRoom(parentBathroom)
 		
 		while(True):
 			home.tick()

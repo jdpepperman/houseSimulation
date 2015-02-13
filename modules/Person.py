@@ -55,16 +55,28 @@ class Person(Actor):
 
         def __getRoomTowardRoomType(self, fromRoom, roomType, roomCheckedStatus):
             def isConnected(r, rt):
+                for key in roomCheckedStatus:
+                    print(key.name + "\t" + str(roomCheckedStatus[key]))
+                print("\n")
+
                 for con in r.getConnections():
-                    if isinstance(con, rt):
-                        return True
-                    else:
-                        return isConnected(con, rt)
+                    if roomCheckedStatus[con] == False:
+                        roomCheckedStatus[con] = True
+                        if isinstance(con, rt):
+                            return True
+                        else:
+                            return isConnected(con, rt)
 
                 return False
-
+            
+            print("From Room: " + fromRoom.name)
+            print(fromRoom.getConnections())
+            roomCheckedStatus[fromRoom] = True
             for room in fromRoom.getConnections():
+                print("Checking Room: " + room.name)
+                roomCheckedStatus[room] = True
                 if isinstance(room, roomType) or isConnected(room, roomType):
+                    print("MOVING TOWARD: " + room.name)
                     return room
             
             #for room in fromRoom.getConnections():
