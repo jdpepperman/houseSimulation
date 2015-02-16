@@ -29,41 +29,19 @@ class Simulation:
 		else:
 			self.timeString = self.timeString + str(self.minute)
 	
-	def run(self):	
-		home = House()
-		
-		kitchen = Kitchen(home, "Kitchen")
-		livingRoom = Room(home, "Living Room")
-		diningRoom = Room(home, "Dining Room")
-		joshuaBedroom = Room(home, "Joshua's Room")
-		emmaBedroom = Room(home, "Emma's Room")
-		jacksonBedroom = Room(home, "Jackson's Room")
-		claireBedroom = Room(home, "Claire's Room")
-		hallway = Room(home, "Hallway")
-		bathroom = Bathroom(home, "Bathroom")
-		laundryRoom = Room(home, "Laundry Room")
-		
-		kitchen.addConnections([livingRoom, diningRoom])
-		hallway.addConnections([joshuaBedroom, emmaBedroom, claireBedroom, jacksonBedroom, livingRoom, laundryRoom, bathroom])
-		#kitchen.addConnections([bathroom])
-		#hallway.addConnections([livingRoom, bathroom])
-		
-		joshua = Person(home, "Joshua", 21)
-		joshua.hunger = 69
-		emma = Person(home, "Emma", 19)
-		jackson = Person(home, "Jackson", 20)
-		claire = Person(home, "Claire", 21)
-		
+        def setup(self):
+            self.home = House()
+
+	def run(self):
+                self.setup()
 		while(True):
-			home.tick()
+			self.home.tick()
 			output = open("/var/www/html/output.txt", "w")
 			output.write("Time: " + self.timeString + "\n\n")
 			self.updateClock()
-			output.write(str(home))
+			output.write(self.home.toString_people())
 			output.write("\n\n")
-			output.write(home.toString_people())
+			output.write(str(self.home))
 			output.close()
 			time.sleep(1)
 
-sim = Simulation()
-sim.run()
