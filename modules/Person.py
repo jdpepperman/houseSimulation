@@ -29,7 +29,7 @@ class Person(Actor):
             return self.hunger >= random.randint(70,101) or self.hunger > 100 or self.status == "eating" or self.status == "moving to Kitchen"
 
 	def wander(self):
-            """Makes the person randomly pick a room that he can go to (including the one he's in) and go there"""
+                """Makes the person randomly pick a room that he can go to (including the one he's in) and go there"""
 		self.status = "wandering"
 		possibleRoomsToGoTo = []
 		possibleRoomsToGoTo.append(self.getRoom())
