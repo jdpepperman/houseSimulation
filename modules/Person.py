@@ -27,7 +27,10 @@ class Person(Actor):
 			self.wander()
 
         def __hungry(self):
-            return self.hunger >= random.randint(70,101) or self.hunger > 100 or self.status == "eating" or self.status == "moving to Kitchen"
+            return self.hunger >= random.randint(75,100) or self.hunger > 100 or self.status == "eating" or self.status == "moving to Kitchen"
+
+        def __bathroom(self):
+            return self.bathroomNeed >= random.randint(75,100) or self.bathroomNeed > 100 or self.status == "going to the bathroom" or self.status == "moving to Bathroom"
 
 	def wander(self):
                 """Makes the person randomly pick a room that he can go to (including the one he's in) and go there"""
@@ -99,3 +102,10 @@ class Person(Actor):
 		incHunger = random.randint(0,100)
 		if incHunger < 25:
 			self.hunger = self.hunger + 1
+
+                incBathroom = random.randint(0,100)
+                #use this to subtract something to do with how hungry they are
+                #...somehow they need to have to go more if they've eaten recently
+                incBathroom = incBathroom - 0
+                if incHunger < 25:
+                    self.bathroomNeed = self.bathroomNeed + 1
