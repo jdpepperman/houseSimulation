@@ -9,6 +9,7 @@ class Person(Actor):
 		self.age = age
 		self.minuteCount = 0
 		self.hunger = random.randint(0,20)
+                self.bathroomNeed = random.randint(0,10)
 
 	def __str__(self):
 		s = "Name: " + self.name + "\n"

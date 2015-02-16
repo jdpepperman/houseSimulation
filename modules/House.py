@@ -47,13 +47,13 @@ class House(object):
 			actor.tick()
 
 	def toString_people(self):
-		s = "People in house [name, age, hunger, status]:\n"
+		s = "People in house\n[name,\t\tage,\thngr,\tbthrm,\tstatus]:\n"
 		for a in self.actors:
 			if isinstance(a, Person):
 				if len(a.name) < 6:
-					s = s + "[" + a.name + ",\t\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + a.status + "]\n"
+					s = s + "[" + a.name + ",\t\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + str(a.bathroomNeed)+ ",\t" +  a.status + "]\n"
 				else:
-					s = s + "[" + a.name + ",\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + a.status + "]\n"
+					s = s + "[" + a.name + ",\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + str(a.bathroomNeed)+ ",\t" + a.status + "]\n"
 
 		return s
 
