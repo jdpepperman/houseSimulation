@@ -36,6 +36,17 @@ class Test(Simulation):
 		joshua = Person(self.home, "Joshua", 21)
 		joshua.bathroomNeed = 100
 		joshua.putInRoom(den)
+		bob = Person(self.home, "Bob", 20)
+		tom = Person(self.home, "Tom", 19)
+		ann = Person(self.home, "Ann", 20)
+		elsa = Person(self.home, "Elsa", 21)
+		peter = Person(self.home, "Peter", 25)
+		sue = Person(self.home, "Sue", 23)
+
+		people = [joshua, bob, tom, ann, elsa, peter, sue]
+		for p in people:
+			p.bathroomNeed = 75
+			p.hunger = 75
 		
 
 sim = Test()
