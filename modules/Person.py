@@ -7,6 +7,7 @@ class Person(Actor):
 		Actor.__init__(self, house, name)
 		self.house.placePersonInRoom(self)
 		self.age = age
+                self.goingToRoom = None
 		self.minuteCount = 0
 		self.hunger = random.randint(0,20)
                 self.bathroomNeed = random.randint(0,10)
@@ -57,6 +58,20 @@ class Person(Actor):
                 self.moveToRoom(roomToGoTo)
             else:
                 self.wander()
+        
+        def moveTowardRoom(self, roomGoingTo):
+            """Makes the person move in the direction of a room of type roomType. If one is not present in the house, he will wander instead."""
+            if roomGoingTo in self.house.getRooms():
+                self.status = "moving to " + roomGoingTo.name
+                from Bathroom import Bathroom
+                from Kitchen import Kitchen
+                currentRoom = self.getRoom()
+                #traverse the graph and look for a path. then move along it
+                print("In room: " + currentRoom.name)
+                roomToGoTo = self.__getRoomTowardRoom(roomGoingTo)
+                self.moveToRoom(roomToGoTo)
+            else:
+                self.wander()
 
         def __getRoomTowardRoomType(self, roomType):
             self.connected = False
@@ -68,6 +83,35 @@ class Person(Actor):
                     print("\t\tChecking " + rm.name)
                     if roomCheckedStatus[rm] == False:
                         if isinstance(rm, rt):
+                            print("True")
+                            self.goingToRoom = rm
+                            self.connected = True
+                        else:
+                            isConnected(rm, rt)
+                return self.connected
+            
+            #set up the checked status of each room in the house
+            roomCheckedStatus = {}
+            for room in self.house.getRooms():
+                roomCheckedStatus[room] = False
+            
+            fromRoom = self.getRoom()
+            roomCheckedStatus[fromRoom] = True
+            for room in fromRoom.getConnections():
+                roomCheckedStatus[room] = True
+                if isinstance(room, roomType) or isConnected(room, roomType): 
+                    return room
+        
+        def __getRoomTowardRoom(self, roomGoingTo):
+            self.connected = False
+            def isConnected(r, rt):
+                toCheck = r.getConnections()
+                roomCheckedStatus[r] = True
+                print("\tIs " + r.name + " connected to " + rt.name + "?")
+                for rm in toCheck:
+                    print("\t\tChecking " + rm.name)
+                    if roomCheckedStatus[rm] == False:
+                        if rm == rt:
                             print("True")
                             self.connected = True
                         else:
@@ -83,7 +127,7 @@ class Person(Actor):
             roomCheckedStatus[fromRoom] = True
             for room in fromRoom.getConnections():
                 roomCheckedStatus[room] = True
-                if isinstance(room, roomType) or isConnected(room, roomType):
+                if room == roomGoingTo or isConnected(room, roomGoingTo):
                     return room
 
 	def eat(self):
@@ -94,7 +138,10 @@ class Person(Actor):
 			if self.hunger < random.randint(0,20):
 				self.status = "idle"
 		else:
-			self.moveTowardRoomType(Kitchen)
+                    if self.goingToRoom == None:
+                        self.moveTowardRoomType(Kitchen)
+                    else:
+                        self.moveTowardToom(self.goingToRoom)
 
         def poop(self):
             from Bathroom import Bathroom
@@ -104,7 +151,10 @@ class Person(Actor):
                 if self.bathroomNeed < random.randint(0,7):
                     self.status = "idle"
             else:
-                self.moveTowardRoomType(Bathroom)
+                if self.goingToRoom == None:
+                    self.moveTowardRoomType(Bathroom)
+                else: 
+                    self.moveTowardRoom(self.goingToRoom)
 
 	def calcAge(self):
 		self.minuteCount = self.minuteCount + 1
@@ -116,13 +166,16 @@ class Person(Actor):
 		self.age = age
 
 	def alterStats(self):
-		incHunger = random.randint(0,100)
-		if incHunger < 25:
-			self.hunger = self.hunger + 1
+            if self.status == "idle":
+                self.goingToRoom = None
+            
+            incHunger = random.randint(0,100)
+	    if incHunger < 25:
+	    	self.hunger = self.hunger + 1
 
-                incBathroom = random.randint(0,100)
-                #use this to subtract something to do with how hungry they are
-                #...somehow they need to have to go more if they've eaten recently
-                incBathroom = incBathroom - 0
-                if incHunger < 25:
-                    self.bathroomNeed = self.bathroomNeed + 1
+            incBathroom = random.randint(0,100)
+            #use this to subtract something to do with how hungry they are
+            #...somehow they need to have to go more if they've eaten recently
+            incBathroom = incBathroom - 0
+            if incHunger < 25:
+                self.bathroomNeed = self.bathroomNeed + 1
