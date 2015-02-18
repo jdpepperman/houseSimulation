@@ -34,8 +34,8 @@ class Test(Simulation):
 
 
 		joshua = Person(self.home, "Joshua", 21)
-		joshua.hunger = 90
-		joshua.putInRoom(parentBathroom)
+		joshua.bathroomNeed = 100
+		joshua.putInRoom(den)
 		
 
 sim = Test()

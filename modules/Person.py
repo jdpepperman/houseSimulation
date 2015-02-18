@@ -23,6 +23,8 @@ class Person(Actor):
 		self.alterStats()
                 if self.__hungry():
 			self.eat()
+                elif self.__bathroom():
+                    self.poop()
 		else:
 			self.wander()
 
@@ -30,7 +32,7 @@ class Person(Actor):
             return self.hunger >= random.randint(75,100) or self.hunger > 100 or self.status == "eating" or self.status == "moving to Kitchen"
 
         def __bathroom(self):
-            return self.bathroomNeed >= random.randint(75,100) or self.bathroomNeed > 100 or self.status == "going to the bathroom" or self.status == "moving to Bathroom"
+            return self.bathroomNeed >= random.randint(75,100) or self.bathroomNeed > 100 or self.status == "pooping" or self.status == "moving to Bathroom"
 
 	def wander(self):
                 """Makes the person randomly pick a room that he can go to (including the one he's in) and go there"""
@@ -50,22 +52,27 @@ class Person(Actor):
                 from Kitchen import Kitchen
                 currentRoom = self.getRoom()
                 #traverse the graph and look for a path. then move along it
+                print("In room: " + currentRoom.name)
                 roomToGoTo = self.__getRoomTowardRoomType(roomType)
                 self.moveToRoom(roomToGoTo)
             else:
                 self.wander()
 
         def __getRoomTowardRoomType(self, roomType):
+            self.connected = False
             def isConnected(r, rt):
-                for con in r.getConnections():
-                    if roomCheckedStatus[con] == False:
-                        roomCheckedStatus[con] = True
-                        if isinstance(con, rt):
-                            return True
+                toCheck = r.getConnections()
+                roomCheckedStatus[r] = True
+                print("\tIs " + r.name + " connected to " + rt.__name__ + "?")
+                for rm in toCheck:
+                    print("\t\tChecking " + rm.name)
+                    if roomCheckedStatus[rm] == False:
+                        if isinstance(rm, rt):
+                            print("True")
+                            self.connected = True
                         else:
-                            return isConnected(con, rt)
-
-                return False
+                            isConnected(rm, rt)
+                return self.connected
             
             #set up the checked status of each room in the house
             roomCheckedStatus = {}
@@ -88,6 +95,16 @@ class Person(Actor):
 				self.status = "idle"
 		else:
 			self.moveTowardRoomType(Kitchen)
+
+        def poop(self):
+            from Bathroom import Bathroom
+            if isinstance(self.getRoom(), Bathroom):
+                self.status = "pooping"
+                self.bathroomNeed = self.bathroomNeed - random.randint(7,14)
+                if self.bathroomNeed < random.randint(0,7):
+                    self.status = "idle"
+            else:
+                self.moveTowardRoomType(Bathroom)
 
 	def calcAge(self):
 		self.minuteCount = self.minuteCount + 1
