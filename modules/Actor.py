@@ -5,6 +5,9 @@ class Actor(object):
 		self.house.actors.append(self)
 		self.status = "nothing"
 
+                self.prevRoom = self.getRoom() 
+		
+
 	def __str__(self):
 		return self.name
 
@@ -30,5 +33,7 @@ class Actor(object):
 		from Room import Room
                 if room.canEnter == False:
                     room = self.getRoom()
+		if self.prevRoom != self.getRoom():
+			self.prevRoom = self.getRoom()
 		self.getRoom().removeActor(self)
 		room.addActor(self)
