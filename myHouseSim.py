@@ -44,7 +44,7 @@ class MyHouseSim(Simulation):
 		anna = Person(self.home, "Anna", 16)
 		brock = Person(self.home, "Brock", 16)
 
-		people = [joshua, emma, raychel, sarah, caleb, ellen, kaylee, gary, anna, brock]
+		people = [joshua, raychel, sarah, caleb, beth, david]
 		#for person in people:
 		#	person.hunger = 68
 		
