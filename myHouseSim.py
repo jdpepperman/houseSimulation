@@ -34,7 +34,7 @@ class MyHouseSim(Simulation):
 
 
 		joshua = Person(self.home, "Joshua", 21)
-		emma = Person(self.home, "Emma", 19)
+		beth = Person(self.home, "Beth", 45)
 		raychel = Person(self.home, "Raychel", 18)
 		sarah = Person(self.home, "Sarah", 13)
 		caleb = Person(self.home, "Caleb", 19)
@@ -43,6 +43,8 @@ class MyHouseSim(Simulation):
 		gary = Person(self.home, "Grayson", 16)
 		anna = Person(self.home, "Anna", 16)
 		brock = Person(self.home, "Brock", 16)
+                emma = Person(self.home, "Emma", 20)
+                david = Person(self.home, "David", 51)
 
 		people = [joshua, raychel, sarah, caleb, beth, david]
 		#for person in people:
