@@ -33,20 +33,20 @@ class MyHouseSim(Simulation):
 		playroom.addConnections([raychelBedroom, upstairsBathroom])
 
 
-		joshua = Person(self.home, "Joshua", 21)
-		beth = Person(self.home, "Beth", 45)
-		raychel = Person(self.home, "Raychel", 18)
-		sarah = Person(self.home, "Sarah", 13)
-		caleb = Person(self.home, "Caleb", 19)
-		ellen = Person(self.home, "Ellen", 18)
-		kaylee = Person(self.home, "Kaylee", 19)
-		gary = Person(self.home, "Grayson", 16)
-		anna = Person(self.home, "Anna", 16)
-		brock = Person(self.home, "Brock", 16)
+		joshua = Person(self.home, "Joshua", 22)
                 emma = Person(self.home, "Emma", 20)
-                david = Person(self.home, "David", 51)
+		beth = Person(self.home, "Beth", 47)
+		raychel = Person(self.home, "Raychel", 19)
+		sarah = Person(self.home, "Sarah", 14)
+		caleb = Person(self.home, "Caleb", 21)
+                david = Person(self.home, "David", 52)
+		#ellen = Person(self.home, "Ellen", 18)
+		#kaylee = Person(self.home, "Kaylee", 19)
+		#gary = Person(self.home, "Grayson", 16)
+		#anna = Person(self.home, "Anna", 16)
+		#brock = Person(self.home, "Brock", 16)
 
-		people = [joshua, raychel, sarah, caleb, beth, david]
+		people = [joshua, emma, raychel, sarah, caleb, beth, david]
 		#for person in people:
 		#	person.hunger = 68
 		
