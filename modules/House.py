@@ -1,6 +1,7 @@
 from Person import Person
 import random
 
+
 class House(object):
     def __init__(self):
         self.rooms = []
@@ -25,7 +26,7 @@ class House(object):
 
         placed = False
         while not placed:
-            i = random.randint(0, len(self.rooms)-1)
+            i = random.randint(0, len(self.rooms) - 1)
             if self.rooms[i].canEnter:
                 self.rooms[i].addActor(person)
                 placed = True
@@ -41,7 +42,7 @@ class House(object):
                 return True
 
         return False
-    
+
     def tick(self):
         for actor in self.actors:
             actor.tick()
@@ -51,9 +52,10 @@ class House(object):
         for a in self.actors:
             if isinstance(a, Person):
                 if len(a.name) < 6:
-                    s = s + "[" + a.name + ",\t\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + str(a.bathroomNeed)+ ",\t" +  a.status + "]\n"
+                    s = s + "[" + a.name + ",\t\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + str(
+                        a.bathroomNeed) + ",\t" + a.status + "]\n"
                 else:
-                    s = s + "[" + a.name + ",\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + str(a.bathroomNeed)+ ",\t" + a.status + "]\n"
+                    s = s + "[" + a.name + ",\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + str(
+                        a.bathroomNeed) + ",\t" + a.status + "]\n"
 
         return s
-

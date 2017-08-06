@@ -1,11 +1,12 @@
 from Simulation import *
 import sys
 
+
 class MyHouseSim(Simulation):
     def __init__(self, outputFilePath="/var/www/html/output.txt"):
         Simulation.__init__(self, outputFilePath)
 
-    def setup(self):    
+    def setup(self):
         Simulation.setup(self)
 
         kitchen = Kitchen(self.home, "Kitchen")
@@ -25,14 +26,14 @@ class MyHouseSim(Simulation):
         upstairsBathroom = Bathroom(self.home, "Upstairs Bathroom")
         parentBathroom = Bathroom(self.home, "Parent's Bathroom")
         laundryRoom = Room(self.home, "Laundry Room")
-        
+
         kitchen.addConnections([cubbyRoom, diningRoom])
         den.addConnections([frontEntry, cubbyRoom, diningRoom])
         frontEntry.addConnections([playroom, hallway])
-        hallway.addConnections([greyBathroom, sarahBedroom, joshuaBedroom, calebBedroom, greenBathroom, laundryRoom, parentBedroom])
+        hallway.addConnections(
+            [greyBathroom, sarahBedroom, joshuaBedroom, calebBedroom, greenBathroom, laundryRoom, parentBedroom])
         parentBedroom.addConnections([parentBathroom])
         playroom.addConnections([raychelBedroom, upstairsBathroom])
-
 
         joshua = Person(self.home, "Joshua", 21)
         emma = Person(self.home, "Emma", 19)
@@ -46,9 +47,9 @@ class MyHouseSim(Simulation):
         brock = Person(self.home, "Brock", 16)
 
         people = [joshua, emma, raychel, sarah, caleb, ellen, kaylee, gary, anna, brock]
-        #for person in people:
+        # for person in people:
         #    person.hunger = 68
-        
+
 
 if len(sys.argv) == 1:
     sim = MyHouseSim()

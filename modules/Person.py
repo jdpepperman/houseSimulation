@@ -2,6 +2,7 @@ from Actor import Actor
 from Room import Room
 import random
 
+
 class Person(Actor):
     def __init__(self, house, name, age):
         Actor.__init__(self, house, name)
@@ -9,8 +10,8 @@ class Person(Actor):
         self.age = age
         self.goingToRoom = None
         self.minuteCount = 0
-        self.hunger = random.randint(0,20)
-        self.bathroomNeed = random.randint(0,10)
+        self.hunger = random.randint(0, 20)
+        self.bathroomNeed = random.randint(0, 10)
         self.travelPath = []
 
         self.printFlag = False
@@ -21,7 +22,7 @@ class Person(Actor):
         s = s + "\n"
 
         return s
-        
+
     def tick(self):
         self.calcAge()
         self.alterStats()
@@ -33,6 +34,7 @@ class Person(Actor):
         else:
             if self.__hungry():
                 self.eat()
+
             elif self.__bathroom():
                 self.poop()
             else:
@@ -157,11 +159,12 @@ class Person(Actor):
             self.hunger = self.hunger - random.randint(1,4)
             if self.hunger < random.randint(0,20):
                 self.status = "idle"
+
         else:
-            if self.goingToRoom == None:
-                self.moveTowardRoomType(Kitchen)
-            else:
-                self.moveTowardRoomType(self.goingToRoom)
+            self.moveTowardRoomType(self.goingToRoom)
+
+
+
 
     def poop(self):
         from Bathroom import Bathroom
@@ -185,20 +188,24 @@ class Person(Actor):
     def setAge(self, age):
         self.age = age
 
+
     def alterStats(self):
-            if self.status == "idle":
-                self.goingToRoom = None
-            
-            incHunger = random.randint(0,100)
+        if self.status == "idle":
+            self.goingToRoom = None
+
+        incHunger = random.randint(0, 100)
+
+
         if incHunger < 25:
             self.hunger = self.hunger + 1
 
-            incBathroom = random.randint(0,100)
-            #use this to subtract something to do with how hungry they are
-            #...somehow they need to have to go more if they've eaten recently
+            incBathroom = random.randint(0, 100)
+            # use this to subtract something to do with how hungry they are
+            # ...somehow they need to have to go more if they've eaten recently
             incBathroom = incBathroom - 0
             if incHunger < 25:
                 self.bathroomNeed = self.bathroomNeed + 1
+
 
     def fprint(self, string):
         if self.printFlag:
