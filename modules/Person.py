@@ -3,28 +3,28 @@ from Room import Room
 import random
 
 class Person(Actor):
-	def __init__(self, house, name, age):
-		Actor.__init__(self, house, name)
-		self.house.placePersonInRoom(self)
-		self.age = age
-                self.goingToRoom = None
-		self.minuteCount = 0
-		self.hunger = random.randint(0,20)
-                self.bathroomNeed = random.randint(0,10)
-                self.travelPath = []
+    def __init__(self, house, name, age):
+        Actor.__init__(self, house, name)
+        self.house.placePersonInRoom(self)
+        self.age = age
+        self.goingToRoom = None
+        self.minuteCount = 0
+        self.hunger = random.randint(0,20)
+        self.bathroomNeed = random.randint(0,10)
+        self.travelPath = []
 
-                self.printFlag = False
+        self.printFlag = False
 
-	def __str__(self):
-		s = "Name: " + self.name + "\n"
-		s = s + "Age: " + str(self.age) + "\n"
-		s = s + "\n"
+    def __str__(self):
+        s = "Name: " + self.name + "\n"
+        s = s + "Age: " + str(self.age) + "\n"
+        s = s + "\n"
 
-		return s
-		
-	def tick(self):
-		self.calcAge()
-		self.alterStats()
+        return s
+        
+    def tick(self):
+        self.calcAge()
+        self.alterStats()
 
                 if self.status == "eating":
                     self.eat()
@@ -32,11 +32,11 @@ class Person(Actor):
                     self.poop()
                 else:
                     if self.__hungry():
-		        self.eat()
+                self.eat()
                     elif self.__bathroom():
                         self.poop()
-		    else:
-		        self.wander()
+            else:
+                self.wander()
 
         def __hungry(self):
             return self.hunger >= random.randint(75,100) or self.hunger > 100 or self.status == "eating" or self.status == "moving to Kitchen"
@@ -45,15 +45,15 @@ class Person(Actor):
             self.printFlag = True
             return self.bathroomNeed >= random.randint(75,100) or self.bathroomNeed > 100 or self.status == "pooping" or self.status == "moving to Bathroom"
 
-	def wander(self):
+    def wander(self):
                 """Makes the person randomly pick a room that he can go to (including the one he's in) and go there"""
-		self.status = "wandering"
-		possibleRoomsToGoTo = []
-		possibleRoomsToGoTo.append(self.getRoom())
-		possibleRoomsToGoTo.extend(self.getRoom().getConnections())
+        self.status = "wandering"
+        possibleRoomsToGoTo = []
+        possibleRoomsToGoTo.append(self.getRoom())
+        possibleRoomsToGoTo.extend(self.getRoom().getConnections())
 
-		roomToGoTo = possibleRoomsToGoTo[random.randint(0,len(possibleRoomsToGoTo)-1)]
-		self.moveToRoom(roomToGoTo)
+        roomToGoTo = possibleRoomsToGoTo[random.randint(0,len(possibleRoomsToGoTo)-1)]
+        self.moveToRoom(roomToGoTo)
 
         def moveTowardRoomType(self, roomType):
             """Makes the person move in the direction of a room of type roomType. If one is not present in the house, he will wander instead."""
@@ -150,18 +150,18 @@ class Person(Actor):
                     if isinstance(room, roomType) or isConnected(room, roomType): 
                         return room
         
-	def eat(self):
-		from Kitchen import Kitchen
-		if isinstance(self.getRoom(), Kitchen):
-			self.status = "eating"
-			self.hunger = self.hunger - random.randint(1,4)
-			if self.hunger < random.randint(0,20):
-				self.status = "idle"
-		else:
-                    if self.goingToRoom == None:
-                        self.moveTowardRoomType(Kitchen)
-                    else:
-                        self.moveTowardRoomType(self.goingToRoom)
+    def eat(self):
+        from Kitchen import Kitchen
+        if isinstance(self.getRoom(), Kitchen):
+            self.status = "eating"
+            self.hunger = self.hunger - random.randint(1,4)
+            if self.hunger < random.randint(0,20):
+                self.status = "idle"
+        else:
+            if self.goingToRoom == None:
+                self.moveTowardRoomType(Kitchen)
+            else:
+                self.moveTowardRoomType(self.goingToRoom)
 
         def poop(self):
             from Bathroom import Bathroom
@@ -176,22 +176,22 @@ class Person(Actor):
                 else: 
                     self.moveTowardRoomType(self.goingToRoom)
 
-	def calcAge(self):
-		self.minuteCount = self.minuteCount + 1
-		if self.minuteCount >= 525949:
-			self.age = self.age + 1
-			self.minuteCount = 0
+    def calcAge(self):
+        self.minuteCount = self.minuteCount + 1
+        if self.minuteCount >= 525949:
+            self.age = self.age + 1
+            self.minuteCount = 0
 
-	def setAge(self, age):
-		self.age = age
+    def setAge(self, age):
+        self.age = age
 
-	def alterStats(self):
+    def alterStats(self):
             if self.status == "idle":
                 self.goingToRoom = None
             
             incHunger = random.randint(0,100)
-	    if incHunger < 25:
-	    	self.hunger = self.hunger + 1
+        if incHunger < 25:
+            self.hunger = self.hunger + 1
 
             incBathroom = random.randint(0,100)
             #use this to subtract something to do with how hungry they are
@@ -200,6 +200,6 @@ class Person(Actor):
             if incHunger < 25:
                 self.bathroomNeed = self.bathroomNeed + 1
 
-        def fprint(self, string):
-            if self.printFlag:
-                print(string)
+    def fprint(self, string):
+        if self.printFlag:
+            print(string)
