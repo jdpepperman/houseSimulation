@@ -15,7 +15,7 @@ class Bathroom(Room):
             self.canEnter = False
 
         def removeActor(self, actor):
-                from Person import Person
+            from Person import Person
                 if isinstance(actor, Person):
                     self.occupiedBy = None
                     self.occupied = False
