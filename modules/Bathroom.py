@@ -1,5 +1,6 @@
 from Room import Room
 
+
 class Bathroom(Room):
     def __init__(self, house, name):
         Room.__init__(self, house, name)
@@ -14,12 +15,12 @@ class Bathroom(Room):
             self.occupied = True
             self.canEnter = False
 
-        def removeActor(self, actor):
-                from Person import Person
-                if isinstance(actor, Person):
-                    self.occupiedBy = None
-                    self.occupied = False
-                    self.canEnter = True
-                    Room.removeActor(self, actor)
-                else:
-                    Room.removeActor(self, actor)
+    def removeActor(self, actor):
+        from Person import Person
+        if isinstance(actor, Person):
+            self.occupiedBy = None
+            self.occupied = False
+            self.canEnter = True
+            Room.removeActor(self, actor)
+        else:
+            Room.removeActor(self, actor)

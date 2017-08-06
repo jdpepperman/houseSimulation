@@ -2,6 +2,7 @@ from modules import *
 import cPickle as pickle
 import time
 
+
 class Simulation:
     # def __init__(self):
     #     self.outputFilePath = "/var/www/html/output.txt"
@@ -14,7 +15,7 @@ class Simulation:
         self.timeString = "12:00"
         self.minute = 0
         self.hour = 12
-    
+
     def updateClock(self):
         self.minute = self.minute + 1
         if self.minute == 60:
@@ -22,26 +23,26 @@ class Simulation:
             self.minute = 0
             if self.hour == 24:
                 self.hour = 0
-    
+
         self.timeString = ""
         if len(str(self.hour)) < 2:
             self.timeString = self.timeString + "0" + str(self.hour)
         else:
             self.timeString = self.timeString + str(self.hour)
-    
+
         self.timeString = self.timeString + ":"
-    
+
         if len(str(self.minute)) < 2:
             self.timeString = self.timeString + "0" + str(self.minute)
         else:
             self.timeString = self.timeString + str(self.minute)
-    
+
     def setup(self):
         self.home = House()
 
     def run(self):
         self.setup()
-        while(True):
+        while (True):
             self.home.tick()
             output = open(self.outputFilePath, "w")
             output.write("Time: " + self.timeString + "\n\n")
@@ -51,4 +52,3 @@ class Simulation:
             output.write(str(self.home))
             output.close()
             time.sleep(1)
-
