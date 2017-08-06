@@ -9,7 +9,7 @@ class Simulation:
     #     self.minute = 0
     #     self.hour = 12
 
-    def __init__(self, outputFilePath):
+    def __init__(self, outputFilePath="/var/www/html/output.txt"):
         self.outputFilePath = outputFilePath
         self.timeString = "12:00"
         self.minute = 0
