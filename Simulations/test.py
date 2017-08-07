@@ -1,13 +1,12 @@
-from Simulation import *
-import sys
+from Simulations.Simulation import *
 
 
-class MyHouseSim(Simulation):
-    def __init__(self, outputFilePath="/var/www/html/output.txt"):
-        Simulation.__init__(self, outputFilePath)
+class Test(Simulation):
+    def __init__(self):
+        Simulation.__init__(self)
 
     def setup(self):
-        Simulation.setup(self)
+        self.home = House()
 
         kitchen = Kitchen(self.home, "Kitchen")
         cubbyRoom = Room(self.home, "Cubby Room")
@@ -36,25 +35,20 @@ class MyHouseSim(Simulation):
         playroom.addConnections([raychelBedroom, upstairsBathroom])
 
         joshua = Person(self.home, "Joshua", 21)
-        emma = Person(self.home, "Emma", 19)
-        raychel = Person(self.home, "Raychel", 18)
-        sarah = Person(self.home, "Sarah", 13)
-        caleb = Person(self.home, "Caleb", 19)
-        ellen = Person(self.home, "Ellen", 18)
-        kaylee = Person(self.home, "Kaylee", 19)
-        gary = Person(self.home, "Grayson", 16)
-        anna = Person(self.home, "Anna", 16)
-        brock = Person(self.home, "Brock", 16)
+        joshua.bathroomNeed = 100
+        joshua.putInRoom(den)
+        bob = Person(self.home, "Bob", 20)
+        tom = Person(self.home, "Tom", 19)
+        ann = Person(self.home, "Ann", 20)
+        elsa = Person(self.home, "Elsa", 21)
+        peter = Person(self.home, "Peter", 25)
+        sue = Person(self.home, "Sue", 23)
 
-        people = [joshua, emma, raychel, sarah, caleb, ellen, kaylee, gary, anna, brock]
-        # for person in people:
-        #    person.hunger = 68
+        people = [joshua, bob, tom, ann, elsa, peter, sue]
+        for p in people:
+            p.bathroomNeed = 75
+            p.hunger = 75
 
 
-if len(sys.argv) == 1:
-    sim = MyHouseSim()
-elif len(sys.argv) == 2:
-    sim = MyHouseSim(sys.argv[1])
-else:
-    print("Accepts 0 or 1 arguments. Please pass the location of the output file.")
+sim = Test()
 sim.run()

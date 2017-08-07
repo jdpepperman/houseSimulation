@@ -1,4 +1,4 @@
-from Simulation import *
+from Simulations.Simulation import *
 
 
 class Friends(Simulation):
