@@ -1,2 +1,4 @@
 *.swp
 *.pyc
+output.txt
+outputJSON.txt
