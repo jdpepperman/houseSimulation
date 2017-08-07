@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    Original body text.
+</body>
+</html>
+
+<script src="jquery-3.2.1.js"></script>
+<script>
+    $(document).ready(function () {
+        var json = null;
+        $.ajax({
+            url: "outputJSON.txt",
+            async: false,
+            beforeSend: function(){
+                alert("Sending request");
+            },
+            success: function(data) {
+                json = JSON.stringify(data, null, 2);
+            }
+        });
+
+        document.body.innerHTML = json;
+    });
+
+</script>
