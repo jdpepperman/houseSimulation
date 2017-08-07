@@ -6,6 +6,9 @@ class Room(object):
         self.actorsInRoom = []
 
         self.connectionNorth = None
+        self.connectionSouth = None
+        self.connectionEast = None
+        self.connectionWest = None
 
         self.house.addRooms([self])
         self.canEnter = True
@@ -31,15 +34,30 @@ class Room(object):
     #     returnDict = {
     #         'name' : self.name,
     #         'connectionNorth' : self.connectionNorth.name,
-    #         'connectionNorth' : self.connectionNorth.name,
-    #         'connectionNorth' : self.connectionNorth.name,
-    #         'connectionNorth' : self.connectionNorth.name,
+    #         'connectionSouth' : self.connectionSouth.name,
+    #         'connectionEast' : self.connectionEast.name,
+    #         'connectionWest' : self.connectionWest.name,
     #     }
 
-    def addConnections(self, listOfRoomsThisConnectsTo):
-        for connection in listOfRoomsThisConnectsTo:
-            self.connections.append(connection)
-            connection.connections.append(self)
+    def addConnection(self, connecting_room, direction):
+        self.connections.append(connecting_room)
+        connecting_room.connections.append(self)
+
+        if direction == 'N':
+            self.connectionNorth = connecting_room
+            connecting_room.connectionSouth = self
+        elif direction == 'S':
+            self.connectionSouth = connecting_room
+            connecting_room.connectionNorth = self
+        elif direction == 'W':
+            self.connectionWest = connecting_room
+            connecting_room.connectionEast = self
+        elif direction == 'E':
+            self.connectionEast = connecting_room
+            connecting_room.connectionWest = self
+        else:
+            print('Invalid direction. Exiting.')
+            exit(1)
 
     def addActor(self, actor):
         from Person import Person
