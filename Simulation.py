@@ -10,6 +10,7 @@ class Simulation:
                 self.day = 1
                 self.month = 1
                 self.year = 2016
+		self.tickNum = 0
 	
 	def updateClock(self):
 		self.minute = self.minute + 1
@@ -66,12 +67,14 @@ class Simulation:
                 self.setup()
 		while(True):
 			self.home.tick()
-			output = open("/var/www/html/output.txt", "w")
+			self.tickNum += 1
+			output = open("output.txt", "w")
 			output.write("Time: " + self.timeString + "\n\n")
 			self.updateClock()
 			output.write(self.home.toString_people())
 			output.write("\n\n")
 			output.write(str(self.home))
 			output.close()
-			time.sleep(1)
+			print(self.tickNum)
+			#time.sleep(1)
 
