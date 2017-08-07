@@ -23,6 +23,15 @@ class Person(Actor):
 
         return s
 
+    def getDictionary(self):
+        returnDict = {
+            'name' : self.name,
+            'age' : self.age,
+            'hunger' : self.hunger,
+            'bathroomNeed' : self.bathroomNeed
+        }
+        return returnDict
+
     def tick(self):
         self.calcAge()
         self.alterStats()

@@ -36,3 +36,9 @@ class Actor(object):
             self.prevRoom = self.getRoom()
         self.getRoom().removeActor(self)
         room.addActor(self)
+
+    def getDictionary(self):
+        returnDict = {
+            'name' : self.name
+        }
+        return returnDict

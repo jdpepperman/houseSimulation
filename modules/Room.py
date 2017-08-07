@@ -5,6 +5,8 @@ class Room(object):
         self.connections = []
         self.actorsInRoom = []
 
+        self.connectionNorth = None
+
         self.house.addRooms([self])
         self.canEnter = True
 
@@ -24,6 +26,15 @@ class Room(object):
                 s = s + actor.name + ", "
             s = s[:-2]
         return s
+
+    # def getDictionary(self):
+    #     returnDict = {
+    #         'name' : self.name,
+    #         'connectionNorth' : self.connectionNorth.name,
+    #         'connectionNorth' : self.connectionNorth.name,
+    #         'connectionNorth' : self.connectionNorth.name,
+    #         'connectionNorth' : self.connectionNorth.name,
+    #     }
 
     def addConnections(self, listOfRoomsThisConnectsTo):
         for connection in listOfRoomsThisConnectsTo:
@@ -46,3 +57,10 @@ class Room(object):
 
     def getConnections(self):
         return self.connections
+
+    def getConnectionNames(self):
+        names = []
+        for s in self.connections:
+            names.append(s.name)
+
+        return names
