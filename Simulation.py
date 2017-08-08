@@ -77,9 +77,9 @@ class Simulation:
             output.write(str(self.home))
             output.close()
 
-            # TODO don't open a new file pointer each time
-            fp = open('output.txt', 'w')
-            fp.write(json.dumps(self.home.getDictionary(), indent=4, sort_keys=True))
+            with open('output.txt', 'w') as fp:
+                fp.write(json.dumps(self.home.getDictionary(), indent=4, sort_keys=True))
+
             print(self.tickNum)
 
             time.sleep(1)
