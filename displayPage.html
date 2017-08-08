@@ -5,26 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-    Original body text.
+    <div id="#outer-div">
+        Original body text.
+    </div>
 </body>
 </html>
 
 <script src="jquery-3.2.1.js"></script>
-<script>
-    $(document).ready(function () {
-        var json = null;
-        $.ajax({
-            url: "outputJSON.txt",
-            async: false,
-            beforeSend: function(){
-                alert("Sending request");
-            },
-            success: function(data) {
-                json = JSON.stringify(data, null, 2);
-            }
-        });
-
-        document.body.innerHTML = json;
-    });
-
-</script>
+<script src="drawhouse.js"></script>
