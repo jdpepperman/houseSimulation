@@ -16,6 +16,13 @@ class House(object):
     def __iter__(self):
         return iter(self.rooms)
 
+    def getDictionary(self):
+        returnDict = {}
+        for room in self.rooms:
+            returnDict[room.name] = room.getDictionary()
+
+        return returnDict
+
     def getRooms(self):
         return self.rooms
 

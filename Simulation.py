@@ -1,5 +1,6 @@
 from modules import *
 import time
+import json
 
 
 class Simulation:
@@ -75,5 +76,10 @@ class Simulation:
             output.write("\n\n")
             output.write(str(self.home))
             output.close()
+
+            # TODO don't open a new file pointer each time
+            fp = open('output.txt', 'w')
+            fp.write(json.dumps(self.home.getDictionary(), indent=4, sort_keys=True))
             print(self.tickNum)
-        # time.sleep(1)
+
+            time.sleep(1)

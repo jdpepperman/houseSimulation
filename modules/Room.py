@@ -30,14 +30,23 @@ class Room(object):
             s = s[:-2]
         return s
 
-    # def getDictionary(self):
-    #     returnDict = {
-    #         'name' : self.name,
-    #         'connectionNorth' : self.connectionNorth.name,
-    #         'connectionSouth' : self.connectionSouth.name,
-    #         'connectionEast' : self.connectionEast.name,
-    #         'connectionWest' : self.connectionWest.name,
-    #     }
+    def getDictionary(self):
+        returnDict = {}
+
+        if self.connectionNorth is not None: returnDict['connectionNorth'] = self.connectionNorth.name
+        if self.connectionSouth is not None: returnDict['connectionSouth'] = self.connectionSouth.name
+        if self.connectionEast is not None: returnDict['connectionEast'] = self.connectionEast.name
+        if self.connectionWest is not None: returnDict['connectionWest'] = self.connectionWest.name
+
+        if len(self.actorsInRoom) > 0:
+            actorsDict = {}
+
+            for actor in self.actorsInRoom:
+                actorsDict[actor.name] = actor.getDictionary()
+
+            returnDict['Actors'] = actorsDict
+
+        return returnDict
 
     def addConnection(self, connecting_room, direction):
         self.connections.append(connecting_room)

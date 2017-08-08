@@ -1,7 +1,7 @@
 from Simulation import *
 
 
-class MyHouseSim(Simulation):
+class JonsHouseSim(Simulation):
     def __init__(self):
         Simulation.__init__(self)
 
@@ -9,17 +9,17 @@ class MyHouseSim(Simulation):
         Simulation.setup(self)
 
         kitchen = Kitchen(self.home, "Kitchen")
-        livingRoom = Room(self.home, "Living Room")
+        living_room = Room(self.home, "Living Room")
         hallway = Room(self.home, "Hallway")
-        jonBedroom = Room(self.home, "Jon's Bedroom")
-        melBedroom = Room(self.home, "Mel's Room")
+        jon_bedroom = Room(self.home, "Jon's Bedroom")
+        mel_bedroom = Room(self.home, "Mel's Room")
         bathroom = Room(self.home, "Bathroom")
 
-        kitchen.addConnection(livingRoom, 'W')
-        livingRoom.addConnection(hallway, 'W')
-        hallway.addConnection(jonBedroom, 'S')
-        hallway.addConnection(melBedroom, 'W')
-        melBedroom.addConnection(bathroom, 'W')
+        kitchen.addConnection(living_room, 'W')
+        living_room.addConnection(hallway, 'W')
+        hallway.addConnection(jon_bedroom, 'S')
+        hallway.addConnection(mel_bedroom, 'W')
+        mel_bedroom.addConnection(bathroom, 'W')
 
         jon = Person(self.home, "Jonathan", 21)
         mel = Person(self.home, "Melody", 25)
@@ -33,5 +33,5 @@ class MyHouseSim(Simulation):
     #	person.hunger = 68
 
 
-sim = MyHouseSim()
+sim = JonsHouseSim()
 sim.run()
