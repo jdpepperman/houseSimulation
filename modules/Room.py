@@ -3,94 +3,98 @@ class Room(object):
         self.name = name
         self.house = house
         self.connections = []
-        self.actorsInRoom = []
+        self.actors_in_room = []
 
-        self.connectionNorth = None
-        self.connectionSouth = None
-        self.connectionEast = None
-        self.connectionWest = None
+        self.connection_north = None
+        self.connection_south = None
+        self.connection_east = None
+        self.connection_west = None
 
         self.house.addRooms([self])
         self.canEnter = True
 
     def __str__(self):
-        s = "Room: " + self.name + "\n"
-        s = s + "Connections: "
+        string = "Room: " + self.name + "\n"
+        string = string + "Connections: "
         for connection in self.connections:
-            s = s + connection.name + ", "
-        s = s[:-2]
+            string = string + connection.name + ", "
+        string = string[:-2]
 
-        s = s + "\nActors in Room: \n"
-        if len(self.actorsInRoom) == 0:
-            s = s + "\n"
-            s = s[:-1]
+        string = string + "\nActors in Room: \n"
+        if len(self.actors_in_room) == 0:
+            string = string + "\n"
+            string = string[:-1]
         else:
-            for actor in self.actorsInRoom:
-                s = s + actor.name + ", "
-            s = s[:-2]
-        return s
+            for actor in self.actors_in_room:
+                string = string + actor.name + ", "
+            string = string[:-2]
+        return string
 
     def getDictionary(self):
-        returnDict = {}
+        return_dict = {}
 
-        connectionsDict = {}
-        if self.connectionNorth is not None: connectionsDict['connectionNorth'] = self.connectionNorth.name
-        if self.connectionSouth is not None: connectionsDict['connectionSouth'] = self.connectionSouth.name
-        if self.connectionEast is not None: connectionsDict['connectionEast'] = self.connectionEast.name
-        if self.connectionWest is not None: connectionsDict['connectionWest'] = self.connectionWest.name
-        if len(connectionsDict.values()) > 0:
-            returnDict['Connections'] = connectionsDict
+        connections_dict = {}
+        if self.connection_north is not None:
+            connections_dict['connection_north'] = self.connection_north.name
+        if self.connection_south is not None:
+            connections_dict['connection_south'] = self.connection_south.name
+        if self.connection_east is not None:
+            connections_dict['connection_east'] = self.connection_east.name
+        if self.connection_west is not None:
+            connections_dict['connection_west'] = self.connection_west.name
+        if len(connections_dict.values()) > 0:
+            return_dict['Connections'] = connections_dict
 
-        if len(self.actorsInRoom) > 0:
-            actorsDict = {}
+        if len(self.actors_in_room) > 0:
+            actors_dict = {}
 
-            for actor in self.actorsInRoom:
-                actorsDict[actor.name] = actor.getDictionary()
+            for actor in self.actors_in_room:
+                actors_dict[actor.name] = actor.getDictionary()
 
-            returnDict['Actors'] = actorsDict
+            return_dict['Actors'] = actors_dict
 
-        return returnDict
+        return return_dict
 
     def addConnection(self, connecting_room, direction):
         self.connections.append(connecting_room)
         connecting_room.connections.append(self)
 
         if direction == 'N':
-            self.connectionNorth = connecting_room
-            connecting_room.connectionSouth = self
+            self.connection_north = connecting_room
+            connecting_room.connection_south = self
         elif direction == 'S':
-            self.connectionSouth = connecting_room
-            connecting_room.connectionNorth = self
+            self.connection_south = connecting_room
+            connecting_room.connection_north = self
         elif direction == 'W':
-            self.connectionWest = connecting_room
-            connecting_room.connectionEast = self
+            self.connection_west = connecting_room
+            connecting_room.connection_east = self
         elif direction == 'E':
-            self.connectionEast = connecting_room
-            connecting_room.connectionWest = self
+            self.connection_east = connecting_room
+            connecting_room.connection_west = self
         else:
             print('Invalid direction. Exiting.')
             exit(1)
 
     def addActor(self, actor):
-        from Person import Person
+        from modules.Person import Person
         if isinstance(actor, Person):
-            for r in self.house:
-                if actor in r.actorsInRoom:
-                    r.removeActor(actor)
+            for room in self.house:
+                if actor in room.actors_in_room:
+                    room.removeActor(actor)
             if self.canEnter:
-                self.actorsInRoom.append(actor)
+                self.actors_in_room.append(actor)
         else:
-            self.actorsInRoom.append(actor)
+            self.actors_in_room.append(actor)
 
     def removeActor(self, actor):
-        self.actorsInRoom.remove(actor)
+        self.actors_in_room.remove(actor)
 
     def getConnections(self):
         return self.connections
 
     def getConnectionNames(self):
         names = []
-        for s in self.connections:
-            names.append(s.name)
+        for conn in self.connections:
+            names.append(conn.name)
 
         return names

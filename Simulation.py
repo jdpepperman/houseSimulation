@@ -5,13 +5,14 @@ import json
 
 class Simulation:
     def __init__(self):
-        self.timeString = "12:00"
+        self.home = None
+        self.time_string = "12:00"
         self.minute = 0
         self.hour = 12
         self.day = 1
         self.month = 1
         self.year = 2016
-        self.tickNum = 0
+        self.tick_num = 0
 
     def updateClock(self):
         self.minute = self.minute + 1
@@ -28,21 +29,22 @@ class Simulation:
             self.year = self.year + 1
             self.month = 1
 
-        self.timeString = ""
+        self.time_string = ""
         if len(str(self.hour)) < 2:
-            self.timeString = self.timeString + "0" + str(self.hour)
+            self.time_string = self.time_string + "0" + str(self.hour)
         else:
-            self.timeString = self.timeString + str(self.hour)
+            self.time_string = self.time_string + str(self.hour)
 
-        self.timeString = self.timeString + ":"
+        self.time_string = self.time_string + ":"
 
         if len(str(self.minute)) < 2:
-            self.timeString = self.timeString + "0" + str(self.minute)
+            self.time_string = self.time_string + "0" + str(self.minute)
         else:
-            self.timeString = self.timeString + str(self.minute)
+            self.time_string = self.time_string + str(self.minute)
 
-        self.timeString = self.timeString + ", "
-        self.timeString = self.timeString + str(self.month) + "/" + str(self.day) + "/" + str(self.year)
+        self.time_string = self.time_string + ", "
+        self.time_string = (self.time_string + str(self.month) + "/" + str(self.day) +
+                            "/" + str(self.year))
 
     def daysInMonth(self, month):
         if month in (1, 3, 5, 7, 8, 10, 12):
@@ -66,11 +68,11 @@ class Simulation:
 
     def run(self):
         self.setup()
-        while (True):
+        while True:
             self.home.tick()
-            self.tickNum += 1
+            self.tick_num += 1
             output = open("output.txt", "w")
-            output.write("Time: " + self.timeString + "\n\n")
+            output.write("Time: " + self.time_string + "\n\n")
             self.updateClock()
             output.write(self.home.toString_people())
             output.write("\n\n")
@@ -80,6 +82,6 @@ class Simulation:
             with open('output.txt', 'w') as fp:
                 fp.write(json.dumps(self.home.getDictionary(), indent=4, sort_keys=True))
 
-            print(self.tickNum)
+            print self.tick_num
 
-            time.sleep(1)
+            #time.sleep(1)

@@ -5,7 +5,7 @@ class Actor(object):
         self.house.actors.append(self)
         self.status = "nothing"
 
-        self.prevRoom = self.getRoom()
+        self.prev_room = self.getRoom()
 
     def __str__(self):
         return self.name
@@ -15,14 +15,14 @@ class Actor(object):
 
     def putInRoom(self, room):
         from Room import Room
-        for r in self.house:
-            if self in r.actorsInRoom:
-                r.removeActor(self)
+        for room in self.house:
+            if self in room.actors_in_room:
+                room.removeActor(self)
         room.addActor(self)
 
     def getRoom(self):
         for room in self.house:
-            if self in room.actorsInRoom:
+            if self in room.actors_in_room:
                 return room
 
     # Moves an actor to a room. If the room is not enterable, they will stay in
@@ -30,15 +30,15 @@ class Actor(object):
     def moveToRoom(self, room):
         # print(self.name +" moving from " + self.getRoom().name + " to " + room.name)
         from Room import Room
-        if room.canEnter == False:
+        if room.canEnter is False:
             room = self.getRoom()
-        if self.prevRoom != self.getRoom():
-            self.prevRoom = self.getRoom()
+        if self.prev_room != self.getRoom():
+            self.prev_room = self.getRoom()
         self.getRoom().removeActor(self)
         room.addActor(self)
 
     def getDictionary(self):
-        returnDict = {
+        return_dict = {
             'name' : self.name
         }
-        return returnDict
+        return return_dict

@@ -1,5 +1,5 @@
-from Person import Person
 import random
+from Person import Person
 
 
 class House(object):
@@ -8,27 +8,27 @@ class House(object):
         self.actors = []
 
     def __str__(self):
-        h = ""
+        house_string = ""
         for room in self.rooms:
-            h = h + str(room) + "\n\n"
-        return h[:-2]
+            house_string = house_string + str(room) + "\n\n"
+        return house_string[:-2]
 
     def __iter__(self):
         return iter(self.rooms)
 
     def getDictionary(self):
-        returnDict = {}
+        return_dict = {}
         for room in self.rooms:
-            returnDict[room.name] = room.getDictionary()
+            return_dict[room.name] = room.getDictionary()
 
-        return returnDict
+        return return_dict
 
     def getRooms(self):
         return self.rooms
 
     def placePersonInRoom(self, person):
         for room in self.rooms:
-            if person in room.actorsInRoom:
+            if person in room.actors_in_room:
                 room.removeActor(person)
 
         placed = False
@@ -55,14 +55,16 @@ class House(object):
             actor.tick()
 
     def toString_people(self):
-        s = "People in house\n[name,\t\tage,\thngr,\tbthrm,\tstatus]:\n"
-        for a in self.actors:
-            if isinstance(a, Person):
-                if len(a.name) < 6:
-                    s = s + "[" + a.name + ",\t\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + str(
-                        a.bathroomNeed) + ",\t" + a.status + "]\n"
+        string = "People in house\n[name,\t\tage,\thngr,\tbthrm,\tstatus]:\n"
+        for actor in self.actors:
+            if isinstance(actor, Person):
+                if len(actor.name) < 6:
+                    string = (string + "[" + actor.name + ",\t\t" + str(actor.age) + ",\t" +
+                              str(actor.hunger) + ",\t" + str(actor.bathroom_need) + ",\t" +
+                              actor.status + "]\n")
                 else:
-                    s = s + "[" + a.name + ",\t" + str(a.age) + ",\t" + str(a.hunger) + ",\t" + str(
-                        a.bathroomNeed) + ",\t" + a.status + "]\n"
+                    string = (string + "[" + actor.name + ",\t" + str(actor.age) + ",\t" +
+                              str(actor.hunger) + ",\t" + str(actor.bathroom_need) + ",\t" +
+                              actor.status + "]\n")
 
-        return s
+        return string
