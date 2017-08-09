@@ -174,7 +174,7 @@ class Person(Actor):
             if self.hunger < random.randint(0, 20):
                 self.status = "idle"
         else:
-            if self.going_to_room == None:
+            if self.going_to_room is None:
                 self.moveTowardRoomType(Kitchen)
             else:
                 self.moveTowardRoomType(self.going_to_room)

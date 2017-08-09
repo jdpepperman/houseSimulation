@@ -13,12 +13,6 @@ class Actor(object):
     def tick(self):
         pass
 
-    # def putInRoom(self, room):
-    #     for room in self.house:
-    #         if self in room.actors_in_room:
-    #             room.removeActor(self)
-    #     room.addActor(self)
-
     def getRoom(self):
         for room in self.house:
             if self in room.actors_in_room:
@@ -40,4 +34,3 @@ class Actor(object):
             'name' : self.name
         }
         return return_dict
-    

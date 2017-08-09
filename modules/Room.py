@@ -21,7 +21,8 @@ class Room(object):
         string = string[:-2]
 
         string = string + "\nActors in Room: \n"
-        if len(self.actors_in_room) == 0:
+        num_actors_in_room = len(self.actors_in_room)
+        if num_actors_in_room == 0:
             string = string + "\n"
             string = string[:-1]
         else:
@@ -42,10 +43,11 @@ class Room(object):
             connections_dict['connection_east'] = self.connection_east.name
         if self.connection_west is not None:
             connections_dict['connection_west'] = self.connection_west.name
-        if len(connections_dict.values()) > 0:
+        num_connections = len(connections_dict.values())
+        if num_connections > 0:
             return_dict['Connections'] = connections_dict
-
-        if len(self.actors_in_room) > 0:
+        num_actors_in_room = len(self.actors_in_room)
+        if num_actors_in_room > 0:
             actors_dict = {}
 
             for actor in self.actors_in_room:
@@ -72,7 +74,7 @@ class Room(object):
             self.connection_east = connecting_room
             connecting_room.connection_west = self
         else:
-            print('Invalid direction. Exiting.')
+            print 'Invalid direction. Exiting.'
             exit(1)
 
     def addActor(self, actor):
