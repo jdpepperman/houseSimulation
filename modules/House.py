@@ -34,7 +34,7 @@ class House(object):
         placed = False
         while not placed:
             i = random.randint(0, len(self.rooms) - 1)
-            if self.rooms[i].canEnter:
+            if self.rooms[i].can_enter:
                 self.rooms[i].addActor(person)
                 placed = True
 

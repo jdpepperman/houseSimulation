@@ -30,7 +30,7 @@ class Actor(object):
     def moveToRoom(self, room):
         # print(self.name +" moving from " + self.getRoom().name + " to " + room.name)
         from Room import Room
-        if room.canEnter is False:
+        if room.can_enter is False:
             room = self.getRoom()
         if self.prev_room != self.getRoom():
             self.prev_room = self.getRoom()

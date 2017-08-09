@@ -99,7 +99,7 @@ class Person(Actor):
     def __getRoomTowardRoomType(self, roomType):
         # if we're looking for a specific Room
         if isinstance(roomType, Room):
-            connected = False
+            self.connected = False
 
             def isConnected(r, rt):
                 to_check = r.getConnections()
@@ -111,10 +111,10 @@ class Person(Actor):
                     if room_checked_status[room] is False:
                         if room == rt:
                             self.fprint(self.name + " is " + "True")
-                            connected = True
+                            self.connected = True
                         else:
                             isConnected(room, rt)
-                return connected
+                return self.connected
 
             # set up the checked status of each room in the house
             room_checked_status = {}
@@ -126,7 +126,7 @@ class Person(Actor):
             for room in from_room.getConnections():
                 room_checked_status[room] = True
                 if room == roomType:
-                    if room.canEnter:
+                    if room.can_enter:
                         return room
                     else:
                         # return self.__getRoomTowardRoomType(type(roomGoingTo))
@@ -135,7 +135,7 @@ class Person(Actor):
                     return room
         # if we're looking for a room type
         else:
-            connected = False
+            self.connected = False
 
             def isConnected(r, rt):
                 to_check = r.getConnections()
@@ -149,10 +149,10 @@ class Person(Actor):
                             self.fprint(self.name + " is " + "True")
                             # make this the room we go to no matter what now
                             self.going_to_room = room
-                            connected = True
+                            self.connected = True
                         else:
                             isConnected(room, rt)
-                return connected
+                return self.connected
 
             # set up the checked status of each room in the house
             room_checked_status = {}

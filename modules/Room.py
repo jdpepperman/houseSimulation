@@ -11,7 +11,7 @@ class Room(object):
         self.connection_west = None
 
         self.house.addRooms([self])
-        self.canEnter = True
+        self.can_enter = True
 
     def __str__(self):
         string = "Room: " + self.name + "\n"
@@ -81,7 +81,7 @@ class Room(object):
             for room in self.house:
                 if actor in room.actors_in_room:
                     room.removeActor(actor)
-            if self.canEnter:
+            if self.can_enter:
                 self.actors_in_room.append(actor)
         else:
             self.actors_in_room.append(actor)
