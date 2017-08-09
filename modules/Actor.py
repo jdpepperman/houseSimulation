@@ -13,12 +13,11 @@ class Actor(object):
     def tick(self):
         pass
 
-    def putInRoom(self, room):
-        from Room import Room
-        for room in self.house:
-            if self in room.actors_in_room:
-                room.removeActor(self)
-        room.addActor(self)
+    # def putInRoom(self, room):
+    #     for room in self.house:
+    #         if self in room.actors_in_room:
+    #             room.removeActor(self)
+    #     room.addActor(self)
 
     def getRoom(self):
         for room in self.house:
@@ -29,7 +28,6 @@ class Actor(object):
     # the same room.
     def moveToRoom(self, room):
         # print(self.name +" moving from " + self.getRoom().name + " to " + room.name)
-        from Room import Room
         if room.can_enter is False:
             room = self.getRoom()
         if self.prev_room != self.getRoom():
@@ -42,3 +40,4 @@ class Actor(object):
             'name' : self.name
         }
         return return_dict
+    
