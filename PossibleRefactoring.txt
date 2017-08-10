@@ -1,4 +1,5 @@
 1. Implement JavaScript objects to store room/person information.
+    -Perhaps make the JS object a 2D array of max dimensions? Each element would represent a possible room.
 
 2. Rename attributes/function names to follow python standards.
 

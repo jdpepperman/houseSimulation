@@ -10,16 +10,10 @@ $(document).ready(function () {
 });
 
 function drawMap(houseData) {
-    alert("Inside function.");
-
     //Get the dimensions of the house and create an outer div.
-    var dimensions = getDimensions(houseData);
-    alert(dimensions);
-    $("#outer-div").width(200*dimensions[0]).height(200*dimensions[1]).css("border", "solid");
+    createMap(houseData);
 
-    // var $div = $("<div>", {id: "foo", class: "a"});
-    // $div.click(function(){ /* ... */ });
-    // $("#box").append($div);
+
 }
 
 function getDimensions(houseData){
@@ -48,42 +42,42 @@ function getDimensions(houseData){
             var connections = houseData[currentRoom]["Connections"];
 
             // Checks if connectionNorth exists
-            if(connections.hasOwnProperty("connectionNorth")){
+            if(connections.hasOwnProperty("connection_north")){
                 // Checks if connectionNorth has been visited
-                if(visitedRooms.indexOf(connections["connectionNorth"]) == -1){
+                if(visitedRooms.indexOf(connections["connection_north"]) == -1){
                     // Explores connectionNorth
-                    visitedRooms.push(connections["connectionNorth"]);
-                    exploreRoom(connections["connectionNorth"], curX, curY+1);
+                    visitedRooms.push(connections["connection_north"]);
+                    exploreRoom(connections["connection_north"], curX, curY-1);
                 }
             }
 
             // Checks if connectionSouth exists
-            if(connections.hasOwnProperty("connectionSouth")){
+            if(connections.hasOwnProperty("connection_south")){
                 // Checks if connectionSouth has been visited
-                if(visitedRooms.indexOf(connections["connectionSouth"]) == -1){
+                if(visitedRooms.indexOf(connections["connection_south"]) == -1){
                     // Explores connectionSouth
-                    visitedRooms.push(connections["connectionSouth"]);
-                    exploreRoom(connections["connectionSouth"], curX, curY-1);
+                    visitedRooms.push(connections["connection_south"]);
+                    exploreRoom(connections["connection_south"], curX, curY+1);
                 }
             }
 
             // Checks if connectionEast exists
-            if(connections.hasOwnProperty("connectionEast")){
+            if(connections.hasOwnProperty("connection_east")){
                 // Checks if connectionEast has been visited
-                if(visitedRooms.indexOf(connections["connectionEast"]) == -1){
+                if(visitedRooms.indexOf(connections["connection_east"]) == -1){
                     // Explores connectionEast
-                    visitedRooms.push(connections["connectionEast"]);
-                    exploreRoom(connections["connectionEast"], curX+1, curY);
+                    visitedRooms.push(connections["connection_east"]);
+                    exploreRoom(connections["connection_east"], curX+1, curY);
                 }
             }
 
             // Checks if connectionWest exists
-            if(connections.hasOwnProperty("connectionWest")){
+            if(connections.hasOwnProperty("connection_west")){
                 // Checks if connectionWest has been visited
-                if(visitedRooms.indexOf(connections["connectionWest"]) == -1){
+                if(visitedRooms.indexOf(connections["connection_west"]) == -1){
                     // Explores connectionWest
-                    visitedRooms.push(connections["connectionWest"]);
-                    exploreRoom(connections["connectionWest"], curX-1, curY);
+                    visitedRooms.push(connections["connection_west"]);
+                    exploreRoom(connections["connection_west"], curX-1, curY);
                 }
             }
         }
@@ -94,4 +88,41 @@ function getDimensions(houseData){
     exploreRoom(startRoom, 0, 0);
 
     return [(maxX-minX)+1, (maxY-minY)+1];
+}
+
+function createMap(houseData){
+    function getRoom(x, y){
+        var keys = Object.keys(houseData);
+        for(var i = 0; i < keys.length; i++){
+            if(houseData[keys[i]].locX == x && houseData[keys[i]].locY == y) return keys[i];
+        }
+
+        return null;
+    }
+
+    var dimensions = getDimensions(houseData);
+    alert(JSON.stringify(houseData, undefined, 2));
+
+    // Keeps the page from shrinking and collapsing the rows.
+    $(document.body).css({minWidth : 150*dimensions[0]});
+
+    var $row;
+    var $div;
+    for(var y = 0; y < dimensions[1]; y++){
+        // Create a row for the grid
+        $row = $("<div>", {class: "row"});
+        for(var x = 0; x < dimensions[0]; x++){
+            // Add space for a room to the row
+            $div = $("<div>", {class: "col"});
+            $div.attr({x_loc:x, y_loc:y});
+            var roomName = getRoom(x, y);
+            if(roomName != null){
+                $div.text(roomName);
+                $div.addClass("room");
+            }
+            $row.append($div);
+        }
+        // Add the row to the body of the page.
+        $(document.body).append($row);
+    }
 }

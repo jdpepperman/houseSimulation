@@ -71,17 +71,20 @@ class Simulation:
         while True:
             self.home.tick()
             self.tick_num += 1
-            output = open("output.txt", "w")
-            output.write("Time: " + self.time_string + "\n\n")
+            # output = open("output.txt", "w")
+            # output.write("Time: " + self.time_string + "\n\n")
             self.updateClock()
-            output.write(self.home.toString_people())
-            output.write("\n\n")
-            output.write(str(self.home))
-            output.close()
+            # output.write(self.home.toString_people())
+            # output.write("\n\n")
+            # output.write(str(self.home))
+            # output.close()
+            # TODO ask josh about how to integrate the above printing (or is it necessary?)
 
             with open('output.txt', 'w') as fp:
                 fp.write(json.dumps(self.home.getDictionary(), indent=4, sort_keys=True))
 
             print(self.tick_num)
 
-            #time.sleep(1)
+            # Removing this sleep command seems to make the program run too fast. The JSON is inconsistently created
+            # depending on whether or not the program is writing the file at the moment execution stops.
+            time.sleep(1)

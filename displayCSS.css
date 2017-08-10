@@ -1,0 +1,15 @@
+.row {
+    display: table;
+}
+
+.col {
+    width: 150px;
+    height: 150px;
+    float: left;
+    box-sizing: border-box;
+}
+
+.room {
+    border: thin solid;
+    text-align: center;
+}
