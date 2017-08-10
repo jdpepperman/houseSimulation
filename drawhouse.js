@@ -4,9 +4,11 @@ $(document).ready(function () {
         async: false,
         success: function(data) {
             //alert(data)
-            drawMap(JSON.parse(data))
+            drawMap(JSON.parse(data));
         }
     });
+
+    window.setInterval("updateActors()", 1000);
 });
 
 function drawMap(houseData) {
@@ -101,13 +103,13 @@ function createMap(houseData){
     }
 
     var dimensions = getDimensions(houseData);
-    alert(JSON.stringify(houseData, undefined, 2));
 
     // Keeps the page from shrinking and collapsing the rows.
     $(document.body).css({minWidth : 150*dimensions[0]});
 
     var $row;
     var $div;
+    var $actor;
     for(var y = 0; y < dimensions[1]; y++){
         // Create a row for the grid
         $row = $("<div>", {class: "row"});
@@ -115,14 +117,47 @@ function createMap(houseData){
             // Add space for a room to the row
             $div = $("<div>", {class: "col"});
             $div.attr({x_loc:x, y_loc:y});
+            // Checks to see if the grid space is a valid room.
             var roomName = getRoom(x, y);
             if(roomName != null){
                 $div.text(roomName);
                 $div.addClass("room");
+                $div.attr({"id": roomName});
+                // Adds an actor to the room if applicable
+                if(houseData[roomName].hasOwnProperty("Actors")){
+                    $actor = $("<div>", {class: "actor"});
+                    $div.append($actor);
+                }
             }
             $row.append($div);
         }
         // Add the row to the body of the page.
         $(document.body).append($row);
+    }
+}
+
+function updateActors(){
+    var houseData = null;
+    $.ajax({
+        url: "output.txt",
+        async: false,
+        success: function(data) {
+            houseData = JSON.parse(data);
+        }
+    });
+
+    if(houseData == null) return;
+
+    $(".actor").remove();
+
+    var keys = Object.keys(houseData);
+    var $room;
+    var $actor;
+    for(var i = 0; i < keys.length; i++){
+        if(houseData[keys[i]].hasOwnProperty("Actors")){
+            $room = $("#" + keys[i]);
+            $actor = $("<div>", {class: "actor"});
+            $room.append($actor);
+        }
     }
 }

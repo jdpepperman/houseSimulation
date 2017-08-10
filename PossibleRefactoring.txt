@@ -4,3 +4,10 @@
 2. Rename attributes/function names to follow python standards.
 
 3. Store location inside person instead of room.
+    -This will make frontend much more straightforward.
+    -Give each person and room a unique identifier. Use that to create JSON.
+    -JSON should be house < rooms/actors.
+
+4. Reorganize files so navigation is easier.
+    -Simulations go into single directory.
+    -HTML/CSS/JS go into single directory.

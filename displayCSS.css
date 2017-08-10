@@ -12,4 +12,16 @@
 .room {
     border: thin solid;
     text-align: center;
+    position: relative;
+}
+
+.actor {
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    border-radius: 15px;
+    /*margin: 0 auto;*/
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
 }
