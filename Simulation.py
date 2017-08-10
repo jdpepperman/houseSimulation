@@ -82,6 +82,6 @@ class Simulation:
             with open('output.txt', 'w') as fp:
                 fp.write(json.dumps(self.home.getDictionary(), indent=4, sort_keys=True))
 
-            print self.tick_num
+            print(self.tick_num)
 
             #time.sleep(1)

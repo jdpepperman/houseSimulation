@@ -74,7 +74,7 @@ class Room(object):
             self.connection_east = connecting_room
             connecting_room.connection_west = self
         else:
-            print 'Invalid direction. Exiting.'
+            print('Invalid direction. Exiting.')
             exit(1)
 
     def addActor(self, actor):

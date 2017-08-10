@@ -218,4 +218,4 @@ class Person(Actor):
 
     def fprint(self, string):
         if self.print_flag:
-            print string
+            print(string)
